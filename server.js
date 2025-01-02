@@ -9,9 +9,9 @@ server.use('/',viewhomepage);
 server.use('/database',viewdatabasetable);
 server.use('/about',viewabout);
 server.use('/users', viewuser);
-server.use((req, res) => {
-    res.status(404).send("Content is not found fo this path");
-});
+server.all('*', (req, res) => {
+    res.status(404).send('error! content is not available');
+  });
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
