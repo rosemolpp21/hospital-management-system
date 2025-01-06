@@ -3,3 +3,4 @@ node_modules/
 .scannerwork
 tests/
 coverage/
+sonar-project.properties
