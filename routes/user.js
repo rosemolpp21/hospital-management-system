@@ -58,7 +58,7 @@ router.put('/:id', (req, res) => {
     }
     if (updatefield.length === 0) {
         return res.status(500).send("minimum 1 field required");
-        
+
     }
     values.push(ID);
     db.query(`UPDATE patient SET ${updatefield.join(', ')} WHERE ID = ?`, values, (err, result) => {
