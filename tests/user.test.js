@@ -7,15 +7,7 @@ server.use('/users', patientRouter);
 describe('user route', () => {
     describe('POST /users', () => {
         it('return 200', async () => {
-            const response = await request(server).post('/users').send({
-                ID: 104,
-                first_name: 'John',
-                last_name: 'pp',
-                phone_no: '1234567890',
-                gender: 'Male',
-                age: 22,
-                address: 'thrissur',
-            });
+            const response = await request(server).post('/users').send({ ID: 104, first_name: 'John', last_name: 'pp', phone_no: '1234567890', gender: 'Male', age: 22, address: 'thrissur', });
             expect(response.status).toBe(200);
             expect(response.text).toBe('patient added susccesfully');
         });
@@ -34,16 +26,7 @@ describe('user route', () => {
 
     describe('PUT /users/:id', () => {
         it('should update a user with valid ID', async () => {
-            const response = await request(server)
-                .put('/users/104')
-                .send({
-                    first_name: 'John',
-                    last_name: 'Smith',
-                    phone_no: '9931251769',
-                    gender: 'male',
-                    age: 23,
-                    address: 'thrissur'
-                });
+            const response = await request(server).put('/users/104').send({ first_name: 'John', last_name: 'Smith', phone_no: '9931251769', gender: 'male', age: 23, address: 'thrissur' });
             expect(response.status).toBe(200);
             expect(response.text).toBe('updated data successfully');
         });

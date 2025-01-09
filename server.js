@@ -1,7 +1,7 @@
 const express = require('express');
 const server = express();
 const helmet=require('helmet');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const viewhomepage=require('./routes/home')
 const viewuser = require('./routes/user');
 server.use(express.json());

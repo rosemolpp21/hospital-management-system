@@ -5,17 +5,10 @@ describe('Patient Controller', () => {
     describe('addpatient', () => {
         it('return error if  fields are missing', () => {
             const req = {
-                body: {
-                    first_name: 'John',
-                    last_name: 'Peter',
-                    phone_no: '9234567890',
-                    gender: 'Male',
-                    age: 22,
-                }, 
+                body: { first_name: 'John', last_name: 'Peter', phone_no: '9234567890', gender: 'Male', age: 22, },
             };
             const res = {
-                status: jest.fn().mockReturnThis(),
-                send: jest.fn(),
+                status: jest.fn().mockReturnThis(), send: jest.fn(),
             };
             patientcontroller.addpatient(req, res);
             expect(res.status).toHaveBeenCalledWith(500);
@@ -24,15 +17,7 @@ describe('Patient Controller', () => {
 
         it('all dat filled case', () => {
             const req = {
-                body: {
-                    ID: 1,
-                    first_name: 'John',
-                    last_name: 'Peter',
-                    phone_no: '9234567890',
-                    gender: 'Male',
-                    age: 22,
-                    address: 'Thrissur',
-                },
+                body: { ID: 1, first_name: 'John', last_name: 'Peter', phone_no: '9234567890', gender: 'Male', age: 22, address: 'Thrissur', },
             };
             const res = {
                 status: jest.fn().mockReturnThis(),
@@ -51,7 +36,7 @@ describe('Patient Controller', () => {
         });
         it('should handle database errors', () => {
             const req = {
-                body: {ID: 1,first_name: 'John',last_name: 'Peter',phone_no: '9234567890',gender: 'Male',age: 22,address: 'Thrissur',},
+                body: { ID: 1, first_name: 'John', last_name: 'Peter', phone_no: '9234567890', gender: 'Male', age: 22, address: 'Thrissur', },
             };
             const res = {
                 status: jest.fn().mockReturnThis(),
@@ -87,9 +72,9 @@ describe('Patient Controller', () => {
                 status: jest.fn().mockReturnThis(),
                 send: jest.fn(),
             };
-            patientmodel.updatepatient.mockImplementation((id, updates, values, callback) => {callback(null, { affectedRows: 1 });});
+            patientmodel.updatepatient.mockImplementation((id, updates, values, callback) => { callback(null, { affectedRows: 1 }); });
             patientcontroller.updatepatient(req, res);
-            expect(patientmodel.updatepatient).toHaveBeenCalledWith(1,['first_name=?'],['John', 1],expect.any(Function));
+            expect(patientmodel.updatepatient).toHaveBeenCalledWith(1, ['first_name=?'], ['John', 1], expect.any(Function));
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.send).toHaveBeenCalledWith('updated data successfully');
         });
@@ -102,9 +87,9 @@ describe('Patient Controller', () => {
                 status: jest.fn().mockReturnThis(),
                 send: jest.fn(),
             };
-            patientmodel.deletepatient.mockImplementation((id, callback) => {callback(null, { affectedRows: 1 });});
+            patientmodel.deletepatient.mockImplementation((id, callback) => { callback(null, { affectedRows: 1 }); });
             patientcontroller.deletepatient(req, res);
-            expect(patientmodel.deletepatient).toHaveBeenCalledWith(1,expect.any(Function));
+            expect(patientmodel.deletepatient).toHaveBeenCalledWith(1, expect.any(Function));
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.send).toHaveBeenCalledWith('patient with ID: 1 deleted from database');
         });
