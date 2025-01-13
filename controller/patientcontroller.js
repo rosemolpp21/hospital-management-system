@@ -1,18 +1,17 @@
 const patientmodel=require('../model/patient');
 const patientcontroller={
     addpatient:(req, res) => {
-        const ID = req.body.ID;
         const first_name = req.body.first_name;
         const last_name = req.body.last_name;
         const phone_no = req.body.phone_no;
         const gender = req.body.gender;
         const age = req.body.age;
         const address = req.body.address;
-        const data=[ID,first_name,last_name,phone_no,gender,age,address];
-        if (!ID || !first_name || !last_name || !phone_no || !gender || !age || !address) {
+        const data=[first_name,last_name,phone_no,gender,age,address];
+        if (!first_name || !last_name || !phone_no || !gender || !age || !address) {
             return res.status(500).send('all fields required');
         }
-        patientmodel.addpatient(data,(err, result) => {
+        patientmodel.addpatient(data,(err) => {
             if (err) {
                 return res.status(500).send('error in inserting patient');
             }
@@ -59,7 +58,7 @@ const patientcontroller={
     
         }
         values.push(ID);
-        patientmodel.updatepatient(ID,updatefield,values,(err, result) => {
+        patientmodel.updatepatient(ID,updatefield,values,(err) => {
             if (err) {
                 return res.status(500).send('error in updating patient');
             }
@@ -68,7 +67,7 @@ const patientcontroller={
     },
     deletepatient:(req, res) => {
         const ID = req.params.id;
-        patientmodel.deletepatient(ID,(err, result) => {
+        patientmodel.deletepatient(ID,(err) => {
             if (err) {
                 return res.status(500).send('error in deleting patient');
             }

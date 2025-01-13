@@ -17,7 +17,7 @@ describe('Patient Controller', () => {
 
         it('all dat filled case', () => {
             const req = {
-                body: { ID: 1, first_name: 'John', last_name: 'Peter', phone_no: '9234567890', gender: 'Male', age: 22, address: 'Thrissur', },
+                body: {first_name: 'John', last_name: 'Peter', phone_no: '9234567890', gender: 'Male', age: 22, address: 'Thrissur', },
             };
             const res = {
                 status: jest.fn().mockReturnThis(),
@@ -28,7 +28,7 @@ describe('Patient Controller', () => {
             });
             patientcontroller.addpatient(req, res);
             expect(patientmodel.addpatient).toHaveBeenCalledWith(
-                [1, 'John', 'Peter', '9234567890', 'Male', 22, 'Thrissur'],
+                ['John', 'Peter', '9234567890', 'Male', 22, 'Thrissur'],
                 expect.any(Function)
             );
             expect(res.status).toHaveBeenCalledWith(200);
