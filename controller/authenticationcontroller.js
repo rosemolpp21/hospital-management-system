@@ -11,8 +11,8 @@ const authentication = {
         const address=req.body.address;
         const email = req.body.email;
         const password = req.body.password;
-        const hashedPassword = bcrypt.hash(password, 10);
-        const data=[first_name,last_name,gender,age,phone_no,address,email,hashedPassword ];
+        const hashedpassword = bcrypt.hash(password, 10);
+        const data=[first_name,last_name,gender,age,phone_no,address,email,hashedpassword ];
         if (!first_name||!last_name||!gender||!age||!phone_no||!address||!email || !password) {
             return res.status(500).send('all fields required');
         }
@@ -32,7 +32,7 @@ const authentication = {
         if (!email || !password) {
             return res.status(400).send('Email and password are required');
         }
-        authenticationmodel.loginuser([email],(err, results) => {
+        authenticationmodel.loginuser([email],async(err, results) => {
             if (err) {
                 return res.status(500).send('error in login');
             }
@@ -40,23 +40,21 @@ const authentication = {
                 return res.status(404).send('entered mail is not registered');
             }
             const user = results[0];
-            const checkpassword =bcrypt.compare(password, user.password);
+            const checkpassword =await bcrypt.compare(password, user.password);
             if (!checkpassword) {
                 return res.status(401).send('invalid password enter correct password');
             }
             const accessToken = jwt.sign({ email: user.email,role:'user' }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-            res.status(200).json({ message: 'login successful', accessToken });
+            res.status(200).json({ message: 'login successful', accessToken});
         });
     },
     loginadmin:(req, res) => {
         const email = req.body.email;
         const password = req.body.password;
-    
         if (!email || !password) {
             return res.status(400).send('email and password are required');
         }
-    
-        authenticationmodel.loginadmin([email],(err, results) => {
+        authenticationmodel.loginadmin([email],async (err, results) => {
             if (err) {
                 return res.status(500).send('error during login');
             }
@@ -67,12 +65,10 @@ const authentication = {
             if (admin.role !== 'admin') {
                 return res.status(403).send('you odnt have permission to access');
             }
-    
-            const match =bcrypt.compare(password, admin.password);
+            const match =await bcrypt.compare(password, admin.password);
             if (!match) {
                 return res.status(401).send('Invalid password or mailid');
             }
-    
             const accessToken = jwt.sign({ email: admin.email, role: 'admin' }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
             res.status(200).json({ message: 'Admin login successful', accessToken });
         });

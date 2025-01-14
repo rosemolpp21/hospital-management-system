@@ -7,7 +7,7 @@ const patientmodel={
     },
     updatepatient:(ID,updates,values,callback)=>{
         const query=`UPDATE patient SET ${updates.join(', ')} WHERE ID = ?`;
-        db.query(query,values,callback);
+        db.query(query,[...values,ID],callback);
     },
     deletepatient:(ID,callback)=>{
         const query=`DELETE FROM patient WHERE ID = ?`;

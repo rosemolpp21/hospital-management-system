@@ -58,9 +58,12 @@ const patientcontroller={
     
         }
         values.push(ID);
-        patientmodel.updatepatient(ID,updatefield,values,(err) => {
+        patientmodel.updatepatient(ID,updatefield,values,(err,result) => {
             if (err) {
                 return res.status(500).send('error in updating patient');
+            }
+            if (result.affectedRows === 0) {
+                return res.status(404).send('no data found to update');
             }
             res.status(200).send(`updated data successfully`);
         })
@@ -73,7 +76,6 @@ const patientcontroller={
             }
             res.status(200).send(`patient with ID: ${ID} deleted from database`);
         });
-    }
-      
+    }   
 }
 module.exports=patientcontroller;
