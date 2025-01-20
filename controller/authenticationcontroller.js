@@ -102,8 +102,8 @@ const authentication = {
         });
     },
     viewuserappointmentDetails:(req, res) => {
-        if(req.user.role !== 'user'){
-            return res.status(403).send('role is not matching user');
+        if(req.user.role !== 'user'||req.user.role!=='admin'){
+            return res.status(403).send('user and admin has access');
         }
         authenticationmodel.viewuserappointmentDetails([req.user.email],(err,results)=>{
             if(err){

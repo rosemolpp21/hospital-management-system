@@ -11,6 +11,9 @@ const patientcontroller={
         if (!first_name || !last_name || !phone_no || !gender || !age || !address) {
             return res.status(500).send('all fields required');
         }
+        if(req.user.role !== 'admin'){
+            return res.status(403).send('only admin can add patient details');
+        }
         patientmodel.addpatient(data,(err) => {
             if (err) {
                 return res.status(500).send('error in inserting patient');
@@ -58,6 +61,9 @@ const patientcontroller={
     
         }
         values.push(ID);
+        if(req.user.role !== 'admin'){
+            return res.status(403).send('only admin can update appointment details');
+        }
         patientmodel.updatepatient(ID,updatefield,values,(err,result) => {
             if (err) {
                 return res.status(500).send('error in updating patient');
@@ -69,6 +75,9 @@ const patientcontroller={
         })
     },
     deletepatient:(req, res) => {
+        if(req.user.role !== 'admin'){
+            return res.status(403).send('only admin can delete patient details');
+        }
         const ID = req.params.id;
         patientmodel.deletepatient(ID,(err) => {
             if (err) {
