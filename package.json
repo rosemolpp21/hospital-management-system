@@ -3,17 +3,31 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "test": "jest --coverage",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcrypt-cli": "^1.1.0",
+    "bcryptjs": "^2.4.3",
+    "chai": "^5.1.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mysql": "github:mysqljs/mysql",
-    "mysql2": "^3.12.0"
+    "mysql2": "^3.12.0",
+    "node-mocks-http": "^1.16.2",
+    "sinon": "^19.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
   }
 }
